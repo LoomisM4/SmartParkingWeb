@@ -17,7 +17,7 @@ export default class MapMarker extends Component {
                 <div className={"mapMarker"}
                      onClick={this.showOrHideSpotInfo}
                      style={{backgroundColor: this.props.color}}/>
-                {this.state.spotInfoVisible ? <SpotInfo/> : null}
+                {this.state.spotInfoVisible ? <SpotInfo color={this.props.color}/> : null}
             </div>
         )
     }
