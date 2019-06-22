@@ -2,9 +2,29 @@ import React, {Component} from "react";
 import GoogleMapReact from 'google-map-react';
 import "../style/App.css"
 import MapMarker from "./MapMarker";
-import {GoogleMapsApiKey} from "../settings/ApiKey";
+import {GoogleMapsApiKey} from "../settings/AppSettings";
+import Spot from "../objects/Spot";
 
 export default class Overview extends Component {
+    spots = [
+        new Spot(49.027105, 8.38609, true, null),
+        new Spot(49.027005, 8.38606, false, 1234),
+        new Spot(49.026905, 8.38603, false, null)
+    ];
+
+    getSpots = (color) => {
+        let spots = [];
+        let i = 0;
+        this.spots.forEach(s => {
+            if (s.color === color) {
+                spots[i] = s;
+                i++;
+            }
+        });
+        console.log(spots.length);
+        return spots;
+    };
+
     render() {
         return (
             <div>
@@ -16,12 +36,12 @@ export default class Overview extends Component {
                                             lng: 8.386034
                                         }}
                                         defaultZoom={20}>
-                            {/* first the green markers*/}
-                            <MapMarker lat={49.027005} lng={8.38606} color={"green"}/>
-                            {/* then the yellow markers*/}
-                            <MapMarker lat={49.027105} lng={8.38609} color={"yellow"}/>
-                            {/* last the red markers*/}
-                            <MapMarker lat={49.026905} lng={8.38603} color={"red"}/>
+                            {this.getSpots("green").map(s =>
+                                <MapMarker lat={s.lat} lng={s.lng} color={s.color}/>)}
+                            {this.getSpots("yellow").map(s =>
+                                <MapMarker lat={s.lat} lng={s.lng} color={s.color}/>)}
+                            {this.getSpots("red").map(s =>
+                                <MapMarker lat={s.lat} lng={s.lng} color={s.color}/>)}
                         </GoogleMapReact>
                     </div>
                 </main>

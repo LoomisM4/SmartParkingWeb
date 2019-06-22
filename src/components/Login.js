@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import "../style/App.css"
+import {getRoute} from "../settings/AppSettings";
 
 export default class Login extends Component {
     state = {
@@ -16,7 +17,7 @@ export default class Login extends Component {
     };
 
     login = () => {
-        fetch("http://server.unique-apps.de:9006/login", {
+        fetch(getRoute("login"), {
             method: 'POST',
             headers: {
                 Accept: 'application/json',

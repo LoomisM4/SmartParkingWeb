@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Main from "./Main";
 import Login from "./Login";
 import Loading from "./Loading";
+import {getRoute} from "../settings/AppSettings";
 
 export default class Router extends Component {
     constructor(props) {
@@ -12,13 +13,11 @@ export default class Router extends Component {
         let token = sessionStorage.getItem("token");
         if (token != null && token.length > 0) {
             // the token has to be validated
-            fetch("http://server.unique-apps.de:9006/validate", {
+            fetch(getRoute("validate"), {
                 method: 'GET',
-                mode: 'cors',
                 withCredentials: true,
                 credentials: 'include',
                 headers: {
-                    Origin : 'http://server.unique-apps.de:9006',
                     Authorization: 'Bearer ' + token
                 }
             })

@@ -19,5 +19,5 @@
 
 npm-debug.log*
 yarn-debug.log*
-ApiKey.js
+src/settings/AppSettings.js
 *.iml
