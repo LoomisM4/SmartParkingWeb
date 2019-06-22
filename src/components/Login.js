@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import "../style/App.css"
-import {getRoute} from "../settings/AppSettings";
+import ApiHelper from "../helpers/ApiHelper";
 
 export default class Login extends Component {
     state = {
@@ -17,17 +17,7 @@ export default class Login extends Component {
     };
 
     login = () => {
-        fetch(getRoute("login"), {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username: this.state.username,
-                password: this.state.password,
-            })
-        })
+        ApiHelper.login(this.state.username, this.state.password)
             .then(response => response.json())
             .then(response => this.doPostLoginStuff(response.token))
             .catch(console.log)

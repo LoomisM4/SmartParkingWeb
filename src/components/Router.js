@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Main from "./Main";
 import Login from "./Login";
 import Loading from "./Loading";
-import {getRoute} from "../settings/AppSettings";
+import ApiHelper from "../helpers/ApiHelper";
 
 export default class Router extends Component {
     constructor(props) {
@@ -13,14 +13,7 @@ export default class Router extends Component {
         let token = sessionStorage.getItem("token");
         if (token != null && token.length > 0) {
             // the token has to be validated
-            fetch(getRoute("validate"), {
-                method: 'GET',
-                withCredentials: true,
-                credentials: 'include',
-                headers: {
-                    Authorization: 'Bearer ' + token
-                }
-            })
+            ApiHelper.validate(token)
                 .then(result => result.json())
                 .then(result => this.doPostValidation(result.validated))
                 .catch(console.log);
