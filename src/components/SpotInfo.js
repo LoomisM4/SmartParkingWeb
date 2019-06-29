@@ -5,9 +5,9 @@ import ApiHelper from "../helpers/ApiHelper";
 
 export default class SpotInfo extends Component {
     state = {
-        address: "",
-        price: "",
-        since: ""
+        address: "Laden...",
+        price: "Laden...",
+        since: "Laden..."
     };
 
     constructor(props) {
