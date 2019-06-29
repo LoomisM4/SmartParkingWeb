@@ -13,7 +13,6 @@
 .navbar {
     font-size: 34px;
     height: 40px;
-    border-bottom: palevioletred;
     border-bottom-style: solid;
     border-bottom-width: 1px;
     position: sticky;
@@ -37,11 +36,8 @@
 
 .spotInfo {
     position: fixed;
-    background-color: palevioletred;
-    justify-content: center;
-    align-items: center;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 10px;
+    font-size: 14px;
 }
 
 .mapMarker {
@@ -56,7 +52,18 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: white;
+}
+
+.list {
+    width: 32vw;
+    display: flex;
+    float: left;
+    padding-top: 5px;
+    padding-left: 5px;
+}
+
+.addressListItem {
+    height: 50px;
 }
 
 body {
@@ -71,9 +78,7 @@ footer {
     bottom: 0;
     height: 60px;
     width: 100%;
-    background-color: palevioletred;
     align-items: center;
-
 }
 
 input {

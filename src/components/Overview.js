@@ -2,27 +2,60 @@ import React, {Component} from "react";
 import GoogleMapReact from 'google-map-react';
 import "../style/App.css"
 import MapMarker from "./MapMarker";
-import {GoogleMapsApiKey} from "../settings/AppSettings";
+import {GoogleMapsApiKey} from "../settings/Api";
+import {Colors} from "../settings/Colors";
+import ApiHelper from "../helpers/ApiHelper";
 import Spot from "../objects/Spot";
 
 export default class Overview extends Component {
-    spots = [
-        new Spot(49.027105, 8.38609, true, null),
-        new Spot(49.027005, 8.38606, false, 1234),
-        new Spot(49.026905, 8.38603, false, null)
-    ];
+    static usedAndPayed = null;
+    static freeSpots = null;
+    static usedNotPayedSpots = null;
 
-    getSpots = (color) => {
-        let spots = [];
-        let i = 0;
-        this.spots.forEach(s => {
-            if (s.color === color) {
-                spots[i] = s;
-                i++;
-            }
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            usedAndPayedSpots: [],
+            freeSpots: [],
+            usedNotPayedSpots: []
+        };
+
+        ApiHelper.getAllSpots()
+            .then(response => response.json())
+            .then(response => this.sortSpots(response))
+            .catch(console.log);
+    }
+
+    sortSpots = (spots) => {
+        let allSpots = [];
+        for (let i = 0; i < spots.length; i++) {
+            let s = spots[i];
+            allSpots[i] = new Spot(s.parkingId, s.latitude, s.longitude, s.isFree, s.isIdentified);
+        }
+
+        let usedAndPayed = [];
+        let free = [];
+        let usedNotPayed = [];
+
+        allSpots.forEach(s => {
+            if (s.color === Colors.spotFree)
+                free[free.length] = s;
+            else if (s.color === Colors.spotInUseAndPayed)
+                usedAndPayed[usedAndPayed.length] = s;
+            else if (s.color === Colors.spotInUseNotPayed)
+                usedNotPayed[usedNotPayed.length] = s;
         });
-        console.log(spots.length);
-        return spots;
+
+        Overview.freeSpots = free;
+        Overview.usedAndPayed = usedAndPayed;
+        Overview.usedNotPayedSpots = usedNotPayed;
+
+        this.setState({
+            usedAndPayedSpots: usedAndPayed,
+            freeSpots: free,
+            usedNotPayedSpots: usedNotPayed
+        });
     };
 
     render() {
@@ -36,26 +69,26 @@ export default class Overview extends Component {
                                             lng: 8.386034
                                         }}
                                         defaultZoom={20}>
-                            {this.getSpots("green").map(s =>
-                                <MapMarker lat={s.lat} lng={s.lng} color={s.color}/>)}
-                            {this.getSpots("yellow").map(s =>
-                                <MapMarker lat={s.lat} lng={s.lng} color={s.color}/>)}
-                            {this.getSpots("red").map(s =>
-                                <MapMarker lat={s.lat} lng={s.lng} color={s.color}/>)}
+                            {this.state.usedAndPayedSpots.map(s =>
+                                <MapMarker key={s.id} lat={s.lat} lng={s.lng} spot={s}/>)}
+                            {this.state.freeSpots.map(s =>
+                                <MapMarker key={s.id} lat={s.lat} lng={s.lng} spot={s}/>)}
+                            {this.state.usedNotPayedSpots.map(s =>
+                                <MapMarker key={s.id} lat={s.lat} lng={s.lng} spot={s}/>)}
                         </GoogleMapReact>
                     </div>
                 </main>
-                <footer>
+                <footer style={{backgroundColor: Colors.footerBackground}}>
                     <div>
-                        <div className={"box"} style={{backgroundColor:  "red"}}/>
+                        <div className={"box"} style={{backgroundColor:  Colors.spotInUseNotPayed}}/>
                         Belegt, evtl. nicht bezahlt
                     </div>
                     <div>
-                        <div className={"box"} style={{backgroundColor:  "yellow"}}/>
+                        <div className={"box"} style={{backgroundColor:  Colors.spotFree}}/>
                         Frei
                     </div>
                     <div>
-                        <div className={"box"} style={{backgroundColor:  "green"}}/>
+                        <div className={"box"} style={{backgroundColor:  Colors.spotInUseAndPayed}}/>
                         Belegt und bezahlt
                     </div>
                 </footer>

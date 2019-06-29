@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import "../style/App.css"
+import {Colors} from "../settings/Colors";
 
 export default class NavItem extends Component {
     state = {color: this.props.color};
@@ -8,14 +9,18 @@ export default class NavItem extends Component {
         this.setState({color: color})
     };
 
+    getCurrentColor = () => {
+        return this.state.color
+    };
+
     onMouseEnter = () => {
-        if (this.state.color === "white")
-            this.setState({color: this.props.hoverColor})
+        if (this.state.color === Colors.navItemInactive)
+            this.setState({color: Colors.navItemHover})
     };
 
     onMouseLeave = () => {
-        if (this.state.color !== "palevioletred")
-            this.setState({color: "white"})
+        if (this.state.color !== Colors.navItemActive)
+            this.setState({color: Colors.navItemInactive})
     };
 
     navStyle = () => {
@@ -26,8 +31,7 @@ export default class NavItem extends Component {
         if (this.props.right)
             style = {
                 backgroundColor: this.state.color,
-                position: "absolute",
-                right: 0
+                float: "right"
         };
 
         return style;
