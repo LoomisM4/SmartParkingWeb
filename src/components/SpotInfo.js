@@ -27,9 +27,19 @@ export default class SpotInfo extends Component {
     setDetails = (details) => {
         this.setState({
             price: details.price,
-            since: "TODO"
+            since: this.getFormattedString(details.parkingStart)
         })
     };
+
+    getFormattedString(string) {
+        if (string !== null && string.length > 0) {
+            let splitted = string.split('T');
+            // date is at #0; time is at #1
+            return splitted[0] + " " + splitted[1].substring(0, 5);
+        }
+
+        return "";
+    }
 
     setAddress = (address) => {
         this.setState({address: address})
