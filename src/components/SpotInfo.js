@@ -26,7 +26,7 @@ export default class SpotInfo extends Component {
 
     setDetails = (details) => {
         this.setState({
-            price: "TODO",
+            price: details.price,
             since: "TODO"
         })
     };

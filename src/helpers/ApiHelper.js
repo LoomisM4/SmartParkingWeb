@@ -26,12 +26,6 @@ export default class ApiHelper {
         })
     }
 
-    static update() {
-        console.log("Not yet implemented");
-
-        return new Promise(resolve => null);
-    }
-
     static getAddress(lat, lng) {
         let url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng + "&key=" + GoogleMapsApiKey;
         return fetch(url, {
@@ -44,8 +38,8 @@ export default class ApiHelper {
     }
 
     static getAllSpots() {
-        return fetch("http://localhost:8080/getAllParkings", {
-            method: 'POST',
+        return fetch(getRoute("getAllParkings"), {
+            method: 'GET',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
@@ -54,8 +48,8 @@ export default class ApiHelper {
     }
 
     static getSpot(id) {
-        return fetch("http://localhost:8080/getDistinctParking/" + id, {
-            method: 'POST',
+        return fetch(getRoute("getDistinctParking/" + id), {
+            method: 'GET',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',

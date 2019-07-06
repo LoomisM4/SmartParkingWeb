@@ -8,9 +8,9 @@ import ApiHelper from "../helpers/ApiHelper";
 import Spot from "../objects/Spot";
 
 export default class Overview extends Component {
-    static usedAndPayed = null;
-    static freeSpots = null;
-    static usedNotPayedSpots = null;
+    static usedAndPayed = [];
+    static freeSpots = [];
+    static usedNotPayedSpots = [];
 
     constructor(props) {
         super(props);
@@ -65,8 +65,8 @@ export default class Overview extends Component {
                     <div style={{height: "calc(100vh - 100px)", width: '100vw'}}>
                         <GoogleMapReact bootstrapURLKeys={{key: GoogleMapsApiKey}}
                                         defaultCenter={{
-                                            lat: 49.027005,
-                                            lng: 8.386034
+                                            lat: 49.002147,
+                                            lng: 8.388113
                                         }}
                                         defaultZoom={20}>
                             {this.state.usedAndPayedSpots.map(s =>

@@ -3,7 +3,6 @@ import "../style/App.css"
 import Dashboard from "./Dashboard";
 import Overview from "./Overview";
 import NavItem from "./NavItem";
-import ApiHelper from "../helpers/ApiHelper";
 import {Colors} from "../settings/Colors";
 import List from "./List";
 
@@ -41,38 +40,29 @@ export default class Main extends Component {
         this.props.setSite("Login");
     };
 
-    update = () => {
-        ApiHelper.update()
-            .then(response =>response.json())
-            .then(response => {
-                //TODO
-            });
-        this.changeToOverview();
-    };
-
     render() {
         return (
             <div>
                 <header className={"navbar"} style={{borderBottomColor: Colors.navBarSeparationLine}}>
                     <NavItem value={"Übersicht"}
                              color={Colors.navItemActive}
+                             textColor={"white"}
                              onClick={this.changeToOverview}
                              ref={this.navItemOverview}/>
                     <NavItem value={"Dashboard"}
                              color={Colors.navItemInactive}
+                             textColor={"black"}
                              onClick={this.changeToDashboard}
                              ref={this.navItemDashboard}/>
                     <NavItem value={"Liste"}
                              color={Colors.navItemInactive}
+                             textColor={"black"}
                              onClick={this.changeToList}
                              ref={this.navItemList}/>
                     <NavItem value={"Logout"}
                              color={Colors.navItemInactive}
+                             textColor={"black"}
                              onClick={this.logout}
-                             right={true}/>
-                    <NavItem value={"Aktualisieren"}
-                             color={Colors.navItemInactive}
-                             onClick={this.update}
                              right={true}/>
                 </header>
                 <main>
@@ -85,9 +75,9 @@ export default class Main extends Component {
 
 function getBody(component) {
     if (component === Overview)
-        return <Overview/>
+        return <Overview/>;
     else if (component === Dashboard)
-        return <Dashboard/>
+        return <Dashboard/>;
     else if ((component === List))
         return <List/>
 }

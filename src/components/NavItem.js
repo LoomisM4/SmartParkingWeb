@@ -3,10 +3,14 @@ import "../style/App.css"
 import {Colors} from "../settings/Colors";
 
 export default class NavItem extends Component {
-    state = {color: this.props.color};
+    state = {color: this.props.color, textColor: this.props.textColor};
 
     changeColor = (color) => {
-        this.setState({color: color})
+        this.setState({color: color});
+        if (color === Colors.navItemInactive)
+            this.setState({textColor: "black"});
+        else
+            this.setState({textColor: "white"})
     };
 
     getCurrentColor = () => {
@@ -25,7 +29,8 @@ export default class NavItem extends Component {
 
     navStyle = () => {
         let style = {
-            backgroundColor: this.state.color
+            backgroundColor: this.state.color,
+            color: this.state.textColor
         };
 
         if (this.props.right)

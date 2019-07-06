@@ -1,12 +1,12 @@
 export const Colors = {
-    footerBackground: "palevioletred",
+    footerBackground: "#14254b",
     loadingScreenBackground: "white",
-    navBarSeparationLine: "palevioletred",
-    navItemActive: "palevioletred",
-    navItemHover: "#f1cbd7",
+    navBarSeparationLine: "#14254b",
+    navItemActive: "#14254b",
+    navItemHover: "#afc1ea",
     navItemInactive: "white",
     spotFree: "yellow",
-    spotInfoBackground: "palevioletred",
+    spotInfoBackground: "#14254b",
     spotInUseAndPayed: "green",
     spotInUseNotPayed: "red",
 };
